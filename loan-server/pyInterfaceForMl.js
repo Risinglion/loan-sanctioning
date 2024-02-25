@@ -5,7 +5,7 @@ export default function pyInterfaceForMl(inputs){
         mode: 'text',
         pythonPath: '/usr/bin/python3',
         pythonOptions: ['-u'], // get print results in real-time
-        scriptPath: './python',
+        scriptPath: '',
         args: inputs
     }
     let response = "No response"
