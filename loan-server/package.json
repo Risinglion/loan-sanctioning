@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Handling loan requests and running predictions",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "nodemon server.js",
     "start": "nodemon server.js"
