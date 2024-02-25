@@ -3,39 +3,66 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 
 export function Form1(){
-    // name and email
     return (
         <form>
             <div className="mb-3">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input type="text" className="form-control" id="name" />
+                <label htmlFor="name" className="form-label">Full Name</label>
+                <input type="text" className="form-control" id="name" required />
+                <span id="nameHelp" className="form-text form-help">Enter your full name</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email</label>
-                <input type="email" className="form-control" id="email" />
+                <input type="email" className="form-control" id="email" required/>
+                <span id="emailHelp" className="form-text form-help">Enter your email address</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="phone" className="form-label">Phone</label>
+                <input type="tel" className="form-control" id="phone" required/>
+                <span id="phoneHelp" className="form-text form-help">Enter your phone number</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="address" className="form-label">Address</label>
+                <input type="text" className="form-control" id="address" required/>
+                <span id="addressHelp" className="form-text form-help">Enter your full address</span>
             </div>
         </form>
     )
 }
 
 export function Form2(){
-    // address and phone
     return (
         <form>
             <div className="mb-3">
-                <label htmlFor="address" className="form-label">Address</label>
-                <input type="text" className="form-control" id="address" />
+                <label htmlFor="number-of-dependents" className="form-label">Number of Dependents</label>
+                <input type="number" className="form-control" id="number-of-dependents" required/>
+                <span id="number-of-dependentsHelp" className="form-text form-help">Enter the number of dependents</span>
             </div>
             <div className="mb-3">
-                <label htmlFor="phone" className="form-label">Phone</label>
-                <input type="tel" className="form-control" id="phone" />
+                <label htmlFor="education" className="form-label">Education</label>
+                <select className="form-select" id="education" required>
+                    <option value="1">Graduate</option>
+                    <option value="0">Not Graduate</option>
+                </select>
+                <span id="educationHelp" className="form-text form-help">Select your education level</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="self-employed" className="form-label">Self Employed</label>
+                <select className="form-select" id="self-employed" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <span id="self-employedHelp" className="form-text form-help">Select if you are self employed</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="income" className="form-label">Income</label>
+                <input type="number" className="form-control" id="income" required/>
+                <span id="incomeHelp" className="form-text form-help">Enter your income</span>
             </div>
         </form>
     )
 }
 
 export function Form3(){
-    // income and loan amount
     return (
         <form>
             <div className="mb-3">
@@ -89,7 +116,7 @@ export const setLocalStorage = () => {
 
 export const getAndPostData = () => {   
     let data = JSON.parse(localStorage.getItem("formData"))
-    axios.post("http://localhost:5050/api", data)
+    axios.post("http://localhost:5050/api/model-run", data)
     .then((response) => {
         console.log(response)
     })

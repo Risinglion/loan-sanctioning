@@ -1,4 +1,3 @@
-
 import Web3 from 'web3';
 import dotenv from 'dotenv';
 import contract from './build/contracts/LoanContract.json' assert { type: "json" };
@@ -18,7 +17,7 @@ await web3.eth.net.isListening()
         });
 
 // Adding the account I consider as loan lender to the wallet
-const account = web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY);
+const account = web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY); 
 
 // Function to send the loan amount to the client (amouunt, clientAddress as parameters) received from the frontend
 async function sendLoanAmount(amount, clientAddress){
@@ -37,17 +36,13 @@ async function sendLoanAmount(amount, clientAddress){
 // const balance = await web3.eth.getBalance(account[0].address);
 // console.log(web3.utils.fromWei(balance, 'ether'));
 
-sendLoanAmount(1, '0x8e83163A57E4E7b91f7110e79b948D2dbCEcF078')
-        .then(async (tx) => {
-            const txReceipt = await web3.eth.sendTransaction(tx);
-            console.log("Transaction Receipt : ",txReceipt);
-        })
-        .catch((error) => {
-                console.error(error);
-        });
+// TEST:
 
-
-
-
-
-  
+// sendLoanAmount(1, '0x8e83163A57E4E7b91f7110e79b948D2dbCEcF078')
+//         .then(async (tx) => {
+//             const txReceipt = await web3.eth.sendTransaction(tx);
+//             console.log("Transaction Receipt : ",txReceipt);
+//         })
+//         .catch((error) => {
+//                 console.error(error);
+//         });  
