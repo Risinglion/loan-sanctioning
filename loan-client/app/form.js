@@ -58,6 +58,16 @@ export function Form2(){
                 <input type="number" className="form-control" id="income" required/>
                 <span id="incomeHelp" className="form-text form-help">Enter your income</span>
             </div>
+            <div className="mb-3">
+                <label htmlFor="loan" className="form-label">Loan Amount</label>
+                <input type="number" className="form-control" id="loan" required/>
+                <span id="loanHelp" className="form-text form-help">Enter the loan amount</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="loan-term" className="form-label">Loan Term</label>
+                <input type="number" className="form-control" id="loan-term" required/>
+                <span id="loan-termHelp" className="form-text form-help">Enter the loan term in months</span>
+            </div>
         </form>
     )
 }
@@ -66,25 +76,35 @@ export function Form3(){
     return (
         <form>
             <div className="mb-3">
-                <label htmlFor="income" className="form-label">Income</label>
-                <input type="number" className="form-control" id="income" />
+                <label htmlFor="cibil-score" className="form-label">CIBIL Score</label>
+                <input type="number" className="form-control" id="cibil-score" required/>
+                <span id="cibil-scoreHelp" className="form-text form-help">Enter your CIBIL score</span>
             </div>
             <div className="mb-3">
-                <label htmlFor="loan" className="form-label">Loan Amount</label>
-                <input type="number" className="form-control" id="loan" />
+                <label htmlFor="residential-assets-value" className="form-label">Residential Asset Value</label>
+                <input type="number" className="form-control" id="residential-asset-value" required/>
+                <span id="residential-asset-valueHelp" className="form-text form-help">Enter the value of your residential assets in amount (approx)</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="commercial-assets-value" className="form-label">Commercial Asset Value</label>
+                <input type="number" className="form-control" id="commercial-asset-value" required/>
+                <span id="commercial-assets-valueHelp" className="form-text form-help">Enter the value of your commercial assets in amount (approx)</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="luxury-assets-value" className="form-label">Luxury Asset Value</label>
+                <input type="number" className="form-control" id="luxury-asset-value" required/>
+                <span id="luxury-asset-valueHelp" className="form-text form-help">Enter the value of your luxury assets in amount (approx)</span>
+            </div>
+            <div className="mb-3">
+                <label htmlFor="bank-assets-value" className="form-label">Bank Asset Value</label>
+                <input type="number" className="form-control" id="bank-asset-value" required/>
+                <span id="bank-asset-valueHelp" className="form-text form-help">Enter the value of your bank assets in amount (approx)</span>
             </div>
         </form>
     )
 }
 
-let formData = {
-    name: "",
-    email: "",
-    address: "",
-    phone: "",
-    income: "",
-    loan: ""
-}
+let formData = {}
 
 export function detailsExtractor(){
     // get the form fields first
@@ -97,7 +117,7 @@ export function detailsExtractor(){
     let formValues = []
     currentFormFields.forEach((form) => {
         let formValue = {}
-        form.querySelectorAll("input").forEach((input) => {
+        form.querySelectorAll("input, select").forEach((input) => {
             formValue[input.id] = input.value
         })
         formValues.push(formValue)
@@ -114,10 +134,16 @@ export const setLocalStorage = () => {
     localStorage.setItem("formData", JSON.stringify(formData))
 }
 
-export const getAndPostData = () => {   
-    let data = JSON.parse(localStorage.getItem("formData"))
-    axios.post("http://localhost:5050/api/model-run", data)
+export const getAndPostData = async () => {   
+    detailsExtractor()
+    let inputs = JSON.parse(localStorage.getItem("formData"))
+    let res = false
+    await axios.post("http://localhost:5050/api/model-run", inputs)
     .then((response) => {
-        console.log(response)
+        res = response.data
     })
+    .catch((error) => {
+        console.error(error)
+    })
+    return res
 }

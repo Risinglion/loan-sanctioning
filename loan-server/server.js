@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import fs from 'fs'
 import { routeHandler } from './route-handler.js'
 
 dotenv.config()
@@ -19,9 +20,9 @@ app.post('/api', (req, res) => {
     res.send('Hello from the API')
 })
 
-app.post('/api/:route', (req, res) => {
+app.post('/api/:route', async (req, res) => {
     const { route } = req.params
-    const response = routeHandler(route, req)
+    const response = await routeHandler(route, req)
     res.send(response)
 })
 

@@ -1,12 +1,19 @@
-import pyInterfaceForMl from "./pyInterfaceForMl"
+import pyInterfaceForMl from "./pyInterfaceForMl.js"
+import fs from 'fs'
 
-export function routeHandler(route, req) {
+export async function routeHandler(route, inputs) {
     let response
     switch (route) {
         case 'model-run':
-            // extracting the list of inputs from the list
-            const inputs = req.body.inputs
-            response = pyInterfaceForMl(inputs)
+            // TODO: Add the logic to handle the inputs that are jumbled up
+            inputs = inputs.body
+            for (let i = 0; i < 4; i++){
+                delete inputs[Object.keys(inputs)[0]]
+            }
+            let inputValues = Object.values(inputs)
+            response = await pyInterfaceForMl(inputValues)
+            console.log(response)
+            return response
             break
         case 'web3':
             res.send('Hello from the test2 route')
