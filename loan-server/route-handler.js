@@ -16,10 +16,15 @@ export async function routeHandler(route, inputs) {
             return response
             break
         case 'web3':
-            res.send('Hello from the test2 route')
+            inputs = inputs.body
+            let walletData = inputs.accounts[0]
+            let loanAmount = inputs.accounts[inputs.accounts.length - 1]
+            console.log(walletData, loanAmount)
+            // TODO: contract deployment and transaction logic
+            return inputs
             break
         default:
-            res.send('Hello from the default route')
+            return 404
             break
     }
     return response

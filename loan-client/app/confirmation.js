@@ -1,6 +1,8 @@
 "use client"
 import React from "react"
 import { useState, useEffect } from "react"
+import { collectWalletData } from "./metamask-signing"
+import axios from "axios"
 
 export function ConfirmationComponent({stater, resetPage}){
     let [page, setPage] = useState(false)
@@ -13,7 +15,21 @@ export function ConfirmationComponent({stater, resetPage}){
                 <h1>Would you like to confirm the application?</h1>
                 {page && <p>(According to the data provided there is a good chance of approval)</p>}
                 {!page && <p>(According to the data provided there is only a low chance of approval)</p>}
-                <button className="btn btn-primary">Confirm</button><br />
+                <button className="btn btn-primary" onClick={async ()=>{
+                    console.log('confirm')
+                    const accounts = await collectWalletData()
+                    // get the loan amount from local storage
+                    let inputs = JSON.parse(localStorage.getItem("formData"))
+                    let loanAmount = inputs['loan']
+                    accounts.push(loanAmount)
+                    axios.post('http://localhost:5050/api/web3', {accounts})
+                    .then((response) => {
+                        console.log(response.data)
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
+                }}>Confirm</button><br />
                 <button className="btn btn-danger" onClick={()=>{
                     resetPage()
                     console.log('reset')
