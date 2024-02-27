@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import fs from 'fs'
-import { routeHandler } from './route-handler.js'
+import { routeHandler } from './route-handler.mjs'
 
 dotenv.config()
 
