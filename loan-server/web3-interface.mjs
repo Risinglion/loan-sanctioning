@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import dotenv from 'dotenv';
-import contract from './build/contracts/LoanContract.json' assert { type: "json" };
+import loan_contract from './build/contracts/LoanContract.json' assert { type: "json" };
+import users_contract from './build/contracts/Users.json' assert { type: "json" };
 
 dotenv.config();
 
@@ -19,35 +20,43 @@ await web3.eth.net.isListening()
 // Adding the account I consider as loan lender to the wallet
 const account = web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY); 
 
-// Function to send the loan amount to the client (amouunt, clientAddress as parameters) received from the frontend
-async function sendLoanAmount(amount, clientAddress){
-        // Uncomment the below lines later
-
-        // const contractInstance = new web3.eth.Contract(contract.abi, contractAddress);
-        // contractInstance.methods.sendLoan(amount, clientAddress);
-        const tx = { 
-            from: account[0].address,
-            to: clientAddress, 
-            value: web3.utils.toWei(amount, 'ether')
-        };
-        return tx;
+async function getUserDetails(userAddress){
+        const contractInstance = new web3.eth.Contract(users_contract.abi, process.env.USERS_CONTRACT_ADDRESS);
+        await contractInstance.methods.getUserDetails(userAddress).call().then((response) => {
+                        console.log("User Details : ",response);
+                })
+                .catch((error) => {
+                        console.error('Failed to get the user details:', error);
+                }
+        );
 }
 
-export { sendLoanAmount };
+//Function to send the loan amount to the client (amouunt, clientAddress as parameters) received from the frontend
+async function sendLoanAmount(amount, clientAddress){
+        const contractInstance = new web3.eth.Contract(loan_contract.abi, process.env.CONTRACT_ADDRESS);
+        await contractInstance.methods.sendLoan(amount, clientAddress).send({ from: account[0].address })
+                .then(async (response) => {
+                        const tx = {
+                                from: account[0].address,
+                                to: clientAddress,
+                                value: web3.utils.toWei(amount, 'ether'),
+                        };
+                        const txReceipt = await web3.eth.sendTransaction(tx);
+                        console.log("Transaction Receipt : ",txReceipt);
+                })
+                .catch((error) => {
+                        console.error('Failed to send the loan amount:', error);
+                }
+        );
+        
+}
 
-// const balance = await web3.eth.getBalance(account[0].address);
-// console.log(web3.utils.fromWei(balance, 'ether'));
+// export { sendLoanAmount };
 
-// TEST:
 
-sendLoanAmount(1, '0x8e83163A57E4E7b91f7110e79b948D2dbCEcF078')
-        .then(async (tx) => {
-            const txReceipt = await web3.eth.sendTransaction(tx);
-            console.log("Transaction Receipt : ",txReceipt);
-        })
-        .catch((error) => {
-                console.error(error);
-        });  
+// sendLoanAmount(1, '0x2eD26987bf37A162EaaA3D4c3Ee2D56ccdE54e92');
+
+//getUserDetails('0x2eD26987bf37A162EaaA3D4c3Ee2D56ccdE54e92');
 
 
 
