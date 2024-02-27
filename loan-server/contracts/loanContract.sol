@@ -12,6 +12,7 @@ contract LoanContract {
     }
 
     function sendLoan(uint amount,address client ) public {
+        require(msg.sender == admin, "Only admin can send loan");
         require(loans[client] == 0, "Loan already sent");
         loans[client] = amount;
     }
