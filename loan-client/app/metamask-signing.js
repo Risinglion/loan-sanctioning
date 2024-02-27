@@ -4,9 +4,9 @@ import Web3 from 'web3'
 export const collectWalletData = async () => {
     if(window.ethereum){
         console.log('MetaMask is installed')
-        const web3 = new Web3(window.ethereum)
         try {
-            await window.ethereum.enable()
+            await window.ethereum.request({ method: 'eth_requestAccounts' })
+            const web3 = new Web3(window.ethereum)
             const accounts = await web3.eth.getAccounts()
             console.log(accounts)
             return accounts

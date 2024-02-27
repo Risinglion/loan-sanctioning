@@ -21,16 +21,18 @@ await web3.eth.net.isListening()
 const account = web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY)
 
 async function getUserDetails(userAddress){
+        let result;
         const contractInstance = new web3.eth.Contract(users_contract.abi, process.env.USERS_CONTRACT_ADDRESS)
         await contractInstance.methods.getUserDetails(userAddress).call().then((response) => {
-                        console.log("User Details : ",response)
-                        return response
+                        result = response;
+                        //console.log(result);
                 })
                 .catch((error) => {
                         console.error('Failed to get the user details:', error)
                         return false
                 }
         );
+        return result;
 }
 
 //Function to send the loan amount to the client (amouunt, clientAddress as parameters) received from the frontend
@@ -53,7 +55,7 @@ async function sendLoanAmount(amount, clientAddress){
         
 }
 
-// export { sendLoanAmount };
+export { sendLoanAmount, getUserDetails };
 
 
 // sendLoanAmount(1, '0x2eD26987bf37A162EaaA3D4c3Ee2D56ccdE54e92');

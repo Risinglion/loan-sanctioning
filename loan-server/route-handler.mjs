@@ -64,11 +64,12 @@ export async function routeHandler(route, inputs) {
             return response
             break
         case 'metamask-login':
-            response = await getUserDetails(inputs.accounts[0])
-            if(response){
-                for (let key in response)
-                    if(key!='userAddress') response[key] = response[key].slice(0, -1)
-                return response
+            let res =  await getUserDetails(inputs.body.accounts[0])
+            //console.log(res)
+            if(res != false){
+                for (let key in res)
+                    if(key!='userAddress') res[key] = res[key].toString()
+                return res
             } else {
                 return false
             }
