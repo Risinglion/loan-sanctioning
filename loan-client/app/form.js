@@ -145,5 +145,6 @@ export const getAndPostData = async () => {
     .catch((error) => {
         console.error(error)
     })
+    // add res to local storage
     return res
 }

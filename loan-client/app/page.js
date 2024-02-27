@@ -22,7 +22,6 @@ export default function Home() {
     }, [submitted])
 
 	const resetPage = () => {
-		console.log('reset called')
 		setPage(1)
 		setSubmitted(false)
 		setShowMessage(false)
