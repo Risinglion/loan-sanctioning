@@ -6,6 +6,7 @@
   min-height: 100vh;
   background-color: black;
   color: #ffffffcb;
+  margin-bottom: 20px;
 }
 
 .description {
@@ -108,10 +109,6 @@
 
 .logo {
   position: relative;
-}
-
-.form-help {
-  color: aliceblue !important;
 }
 
 /* Enable hover only on non-touch devices */

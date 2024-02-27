@@ -14,6 +14,7 @@ export const collectWalletData = async () => {
             console.error('User denied account access')
         }
     }
-    else console.log('MetaMask is not installed')
+    else{ console.log('MetaMask is not installed')
+        return false}
 }
 

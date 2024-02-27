@@ -20,9 +20,12 @@ export function ConfirmationComponent({stater, resetPage}){
                     const accounts = await collectWalletData()
                     // get the loan amount from local storage
                     let inputs = JSON.parse(localStorage.getItem("formData"))
-                    let loanAmount = inputs['loan']
-                    accounts.push(loanAmount)
-                    axios.post('http://localhost:5050/api/web3', {accounts})
+                    const data = {
+                        "accounts": accounts,
+                        "form": inputs,
+                        "modelAcceptance": stater
+                    }
+                    axios.post('http://localhost:5050/api/web3', {data})
                     .then((response) => {
                         console.log(response.data)
                     })

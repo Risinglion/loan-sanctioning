@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "test": "nodemon server.js",
-    "start": "nodemon server.js"
+    "test": "nodemon server.mjs",
+    "start": "nodemon server.mjs"
   },
   "author": "RLion",
   "license": "MIT",
@@ -17,6 +17,8 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "path": "^0.12.7",
+    "prompt": "^1.3.0",
+    "prompt-sync": "^4.2.0",
     "python-shell": "^5.0.0",
     "solc": "^0.8.19",
     "web3": "^4.5.0"
