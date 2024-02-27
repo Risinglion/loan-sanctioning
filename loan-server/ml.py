@@ -1,8 +1,6 @@
 import sys
-import os
 import pyarrow.parquet as pq
 import xgboost as xgboost
-from xgboost import XGBClassifier
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import joblib
