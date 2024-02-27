@@ -2,6 +2,7 @@ import React from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { collectWalletData } from "./metamask-signing"
 import './metamask_login.css'
+import axios from "axios"
 
 export function MetaMaskLogin({nextPage , login}) {
     return (
@@ -11,7 +12,14 @@ export function MetaMaskLogin({nextPage , login}) {
                 async () => {
                     const accounts = await collectWalletData()
                     if(accounts){
-                        
+                        axios.post('http://localhost:5050/api/metamask-login', {accounts})
+                        .then((response) => {
+                            console.log(response.data)
+                            localStorage.setItem("metaMaskData", JSON.stringify(response.data))
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                        })
                         nextPage()
                         login()
                         console.log(accounts)

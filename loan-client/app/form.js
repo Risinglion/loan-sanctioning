@@ -1,4 +1,5 @@
 import React from "react"
+import { useState, useEffect } from "react"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 
@@ -30,6 +31,12 @@ export function Form1(){
 }
 
 export function Form2(){
+    const [formData, setFormData] = useState({})
+
+    useEffect(() => {
+        const metaMaskData = JSON.parse(localStorage.getItem('metaMaskData'));
+        setFormData(metaMaskData);
+    }, []);
     return (
         <form>
             <div className="mb-3">
@@ -55,7 +62,7 @@ export function Form2(){
             </div>
             <div className="mb-3">
                 <label htmlFor="income" className="form-label">Income</label>
-                <input type="number" className="form-control" id="income" required/>
+                <input type="number" className="form-control" id="income" value={formData.income_annum || ''} required/>
                 <span id="incomeHelp" className="form-text form-help">Enter your income</span>
             </div>
             <div className="mb-3">
@@ -73,31 +80,37 @@ export function Form2(){
 }
 
 export function Form3(){
+    const [formData, setFormData] = useState({})
+
+    useEffect(() => {
+        const metaMaskData = JSON.parse(localStorage.getItem('metaMaskData'));
+        setFormData(metaMaskData);
+    }, []);
     return (
         <form>
             <div className="mb-3">
                 <label htmlFor="cibil-score" className="form-label">CIBIL Score</label>
-                <input type="number" className="form-control" id="cibil-score" required/>
+                <input type="number" className="form-control" id="cibil-score" value={formData.cibil_score || ''} required/>
                 <span id="cibil-scoreHelp" className="form-text form-help">Enter your CIBIL score</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="residential-assets-value" className="form-label">Residential Asset Value</label>
-                <input type="number" className="form-control" id="residential-asset-value" required/>
+                <input type="number" className="form-control" id="residential-asset-value" value={formData.residential_assets_value || ''} required/>
                 <span id="residential-asset-valueHelp" className="form-text form-help">Enter the value of your residential assets in amount (approx)</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="commercial-assets-value" className="form-label">Commercial Asset Value</label>
-                <input type="number" className="form-control" id="commercial-asset-value" required/>
+                <input type="number" className="form-control" id="commercial-asset-value" value={formData.commercial_assets_value || ''} required/>
                 <span id="commercial-assets-valueHelp" className="form-text form-help">Enter the value of your commercial assets in amount (approx)</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="luxury-assets-value" className="form-label">Luxury Asset Value</label>
-                <input type="number" className="form-control" id="luxury-asset-value" required/>
+                <input type="number" className="form-control" id="luxury-asset-value" value={formData.luxury_assets_value || ''} required/>
                 <span id="luxury-asset-valueHelp" className="form-text form-help">Enter the value of your luxury assets in amount (approx)</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="bank-assets-value" className="form-label">Bank Asset Value</label>
-                <input type="number" className="form-control" id="bank-asset-value" required/>
+                <input type="number" className="form-control" id="bank-asset-value" value={formData.bank_asset_value || ''} required/>
                 <span id="bank-asset-valueHelp" className="form-text form-help">Enter the value of your bank assets in amount (approx)</span>
             </div>
         </form>

@@ -1,5 +1,5 @@
 import pyInterfaceForMl from "./pyInterfaceForMl.mjs"
-// import { sendLoanAmount } from "./web3-interface.mjs"
+import { sendLoanAmount, getUserDetails } from "./web3-interface.mjs"
 import prompt from 'prompt'
 
 export async function routeHandler(route, inputs) {
@@ -56,12 +56,22 @@ export async function routeHandler(route, inputs) {
             if(adminAcceptance){
                 // TODO: contract deployment and transaction logic
                 console.log('Admin Accepted the request')
-                // response = await sendLoanAmount(loanAmount, clientAddress)
+                response = await sendLoanAmount(loanAmount, clientAddress)
             }
             else
                 response = 'Admin Rejected the request'
             console.log(response)
             return response
+            break
+        case 'metamask-login':
+            response = await getUserDetails(inputs.accounts[0])
+            if(response){
+                for (let key in response)
+                    if(key!='userAddress') response[key] = response[key].slice(0, -1)
+                return response
+            } else {
+                return false
+            }
             break
         default:
             return 404
