@@ -1,0 +1,9 @@
+.form-help {
+    color: aliceblue !important;
+}
+  
+.nav-div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}

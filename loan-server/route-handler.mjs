@@ -1,6 +1,6 @@
 import pyInterfaceForMl from "./pyInterfaceForMl.mjs"
-import fs from 'fs'
-import { sendLoanAmount } from "./web3-interface.mjs"
+// import { sendLoanAmount } from "./web3-interface.mjs"
+import prompt from 'prompt'
 
 export async function routeHandler(route, inputs) {
     let response
@@ -17,13 +17,51 @@ export async function routeHandler(route, inputs) {
             return response
             break
         case 'web3':
-            inputs = inputs.body
+            inputs = inputs.body.data
+            console.log(inputs)
             let clientAddress = inputs.accounts[0]
-            let loanAmount = inputs.accounts[inputs.accounts.length - 1]
-            console.log(walletData, loanAmount)
-            // TODO: contract deployment and transaction logic
-            response = await sendLoanAmount(loanAmount, clientAddress)
-            return inputs
+            let loanAmount = inputs.form['loan']
+            let modelAcceptance = inputs.modelAcceptance
+            let adminAcceptance = false;
+            if(modelAcceptance == 1)
+                console.log('Model Accepted the request')
+            else
+                console.log('Model Rejected the request')
+
+            console.log('Loan Amount:', loanAmount)
+            console.log('Client Address:', clientAddress)
+            console.log('Model Acceptance:', modelAcceptance)
+            
+            // TODO: Add the logic to verify the user entered data
+            // // NOTE: This can be done in the model-run route instead to save computation
+
+            prompt.start()
+
+            let schema = {
+                properties: {
+                    adminAcceptance: {
+                        description: 'Would you like to confirm the application? (yes/no)',
+                        required: true
+                    }
+                }
+            }
+
+            let result = await prompt.get(schema)
+            adminAcceptance = result.adminAcceptance
+            if(adminAcceptance == 'yes' || adminAcceptance == 'Yes' || adminAcceptance == 'YES' || adminAcceptance == 'y' || adminAcceptance == 'Y')
+                adminAcceptance = true
+            else if(adminAcceptance == 'no' || adminAcceptance == 'No' || adminAcceptance == 'NO' || adminAcceptance == 'n' || adminAcceptance == 'N')
+                adminAcceptance = false
+
+            if(adminAcceptance){
+                // TODO: contract deployment and transaction logic
+                console.log('Admin Accepted the request')
+                // response = await sendLoanAmount(loanAmount, clientAddress)
+            }
+            else
+                response = 'Admin Rejected the request'
+            console.log(response)
+            return response
             break
         default:
             return 404

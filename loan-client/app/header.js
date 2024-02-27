@@ -9,7 +9,7 @@ export function Header(){
             href="/"
             className="d-inline-flex link-body-emphasis text-decoration-none"
         >
-            <img src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="Bootstrap" width="40" height="32" />
+            <img src='https://media.discordapp.net/attachments/1088524641179533404/1212033718470975528/536bread_100562.png?ex=65f05d5c&is=65dde85c&hm=44c351faca2e0858110c1b9f0487bc7a76fda059ad363ca5649d8fc9d32390ce&=&format=webp&quality=lossless&width=120&height=120' alt="Bread-Loans" width="40" height="40" />
         </a>
         </div>
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -39,14 +39,6 @@ export function Header(){
             </a>
         </li>
         </ul>
-        <div className="col-md-3 text-end">
-        <button type="button" className="btn btn-outline-primary me-2">
-            Login
-        </button>
-        <button type="button" className="btn btn-primary">
-            Sign-up
-        </button>
-        </div>
     </header>
     </div>)
 }
