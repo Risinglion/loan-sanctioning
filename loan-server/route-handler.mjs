@@ -1,5 +1,6 @@
-import pyInterfaceForMl from "./pyInterfaceForMl.js"
+import pyInterfaceForMl from "./pyInterfaceForMl.mjs"
 import fs from 'fs'
+import { sendLoanAmount } from "./web3-interface.mjs"
 
 export async function routeHandler(route, inputs) {
     let response
@@ -17,10 +18,11 @@ export async function routeHandler(route, inputs) {
             break
         case 'web3':
             inputs = inputs.body
-            let walletData = inputs.accounts[0]
+            let clientAddress = inputs.accounts[0]
             let loanAmount = inputs.accounts[inputs.accounts.length - 1]
             console.log(walletData, loanAmount)
             // TODO: contract deployment and transaction logic
+            response = await sendLoanAmount(loanAmount, clientAddress)
             return inputs
             break
         default:

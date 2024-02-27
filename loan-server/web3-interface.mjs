@@ -23,7 +23,7 @@ const account = web3.eth.accounts.wallet.add(process.env.PRIVATE_KEY);
 async function sendLoanAmount(amount, clientAddress){
         // Uncomment the below lines later
 
-        // const contractInstance = new web3.eth.Contract(contract.abi, process.env.CONTRACT_ADDRESS);
+        // const contractInstance = new web3.eth.Contract(contract.abi, contractAddress);
         // contractInstance.methods.sendLoan(amount, clientAddress);
         const tx = { 
             from: account[0].address,
@@ -33,16 +33,23 @@ async function sendLoanAmount(amount, clientAddress){
         return tx;
 }
 
+export { sendLoanAmount };
+
 // const balance = await web3.eth.getBalance(account[0].address);
 // console.log(web3.utils.fromWei(balance, 'ether'));
 
 // TEST:
 
-// sendLoanAmount(1, '0x8e83163A57E4E7b91f7110e79b948D2dbCEcF078')
-//         .then(async (tx) => {
-//             const txReceipt = await web3.eth.sendTransaction(tx);
-//             console.log("Transaction Receipt : ",txReceipt);
-//         })
-//         .catch((error) => {
-//                 console.error(error);
-//         });  
+sendLoanAmount(1, '0x8e83163A57E4E7b91f7110e79b948D2dbCEcF078')
+        .then(async (tx) => {
+            const txReceipt = await web3.eth.sendTransaction(tx);
+            console.log("Transaction Receipt : ",txReceipt);
+        })
+        .catch((error) => {
+                console.error(error);
+        });  
+
+
+
+
+        
