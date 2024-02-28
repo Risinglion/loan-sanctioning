@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .login-container {
     display: flex;
     flex-direction: column;
@@ -7,9 +9,14 @@
 }
 
 .welcome-message {
-    font-size: 2rem;
+    font-size: 4rem;
     text-align: center;
     margin-bottom: 2rem;
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+    
 }
 
 .login-button {
@@ -64,6 +71,11 @@
     background-color: #0069d9;
 }
   
+.login-help{
+    color:black;
+    font-size: 1rem;
+    font-weight: 500;
+}
 .connected-contract-address {
     font-size: 1.2rem;
     text-align: center;

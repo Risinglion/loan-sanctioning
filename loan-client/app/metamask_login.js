@@ -4,7 +4,7 @@ import { collectWalletData } from "./metamask-signing"
 import './metamask_login.css'
 import axios from "axios"
 
-export function MetaMaskLogin({nextPage , login}) {
+export function MetaMaskLogin({nextPage , login, disableForm}) {
     return (
         <div className="login-container">
             <h1 className="welcome-message">Welcome to the new & easier way of applying for a loan</h1>
@@ -15,6 +15,11 @@ export function MetaMaskLogin({nextPage , login}) {
                         axios.post('http://localhost:5050/api/metamask-login', {accounts})
                         .then((response) => {
                             console.log(response.data)
+                            if(response.data.age < 18){
+                                disableForm()
+                                alert('You must be logged in and at least 18 years old to fill out this form.')
+                                return
+                            }
                             localStorage.setItem("metaMaskData", JSON.stringify(response.data))
                         })
                         .catch((error) => {

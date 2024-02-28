@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   min-height: 100vh;
-  background-color: black;
+  background: linear-gradient(rgb(182, 255, 182), rgb(52, 119, 182));
   color: #ffffffcb;
   margin-bottom: 20px;
 }
