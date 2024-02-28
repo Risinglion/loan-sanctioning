@@ -1,0 +1,17 @@
+
+
+.form-label{
+    color: black;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif ;
+}
+.form-text{
+    color:black;
+}
+form{
+    border-radius: 8px;
+    padding: 60px 75px;
+    background-color: rgba(108, 92, 180, 0.356);
+    opacity: 50;
+    box-shadow: 20px 20px 10px rgba(31, 25, 56, 0.356);
+}

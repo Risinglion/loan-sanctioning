@@ -26,15 +26,24 @@ export default function Home() {
         }
     }, [submitted])
 
-	useEffect(() => {
-		const metaMaskData = JSON.parse(localStorage.getItem('metaMaskData'));
-        setFormData(metaMaskData);
+	function disableForm() {
+		setFormDisabled(true)
+	}
 
-        if (metaMaskData && metaMaskData.age < 18) {
-            setFormDisabled(true);
-            alert('You must be logged in and at least 18 years old to fill out this form.');
-        }
-	}, [loggedIn])
+	// useEffect(() => {
+	// 	const metaMaskData = JSON.parse(localStorage.getItem('metaMaskData'));
+    //     setFormData(metaMaskData);
+
+    //     if (metaMaskData && metaMaskData.age < 18) {
+    //         setFormDisabled(true);
+	// 		localStorage.removeItem('metaMaskData');
+    //         alert('You must be logged in and at least 18 years old to fill out this form.');
+			
+    //     }
+	// 	else if(metaMaskData && metaMaskData.age >= 18){
+	// 		setFormDisabled(false);
+	// 	}
+	// }, [loggedIn])
 
 	const login = () => {
 		if (loggedIn)
@@ -56,7 +65,7 @@ export default function Home() {
   	return (
 		<main className={styles.main}>
 		<Header />
-		{page === 0 && <MetaMaskLogin nextPage={nextPage} login={login}/>}
+		{page === 0 && <MetaMaskLogin nextPage={nextPage} login={login} disableForm={disableForm}/>}
 		{page === 1 && !formDisabled && <Form1 />}
 		{page === 2 && !formDisabled && <Form2 />}
 		{page === 3 && !formDisabled && <Form3 />}
