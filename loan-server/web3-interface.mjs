@@ -37,7 +37,9 @@ async function getUserDetails(userAddress){
 
 //Function to send the loan amount to the client (amouunt, clientAddress as parameters) received from the frontend
 async function sendLoanAmount(amount, clientAddress){
-        const contractInstance = new web3.eth.Contract(loan_contract.abi, process.env.CONTRACT_ADDRESS);
+        //Converting the amount to ether 1 eth = 1 lakh INR
+        amount = amount/100000;
+        const contractInstance = new web3.eth.Contract(loan_contract.abi, process.env.LOAN_CONTRACT_ADDRESS);
         await contractInstance.methods.sendLoan(amount, clientAddress).send({ from: account[0].address })
                 .then(async (response) => {
                         const tx = {
