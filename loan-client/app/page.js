@@ -14,6 +14,9 @@ export default function Home() {
 	const [loading, setLoading] = useState(false)
 	const [stater, setStater] = useState(0)
 	const [loggedIn, setLoggedIn] = useState(false)
+	const [formData, setFormData] = useState({})
+	const [formDisabled, setFormDisabled] = useState(false)
+
 	useEffect(() => {
         if (submitted) {
             setShowMessage(true)
@@ -22,6 +25,16 @@ export default function Home() {
             }, 3000); // Hide the message after 3 seconds
         }
     }, [submitted])
+
+	useEffect(() => {
+		const metaMaskData = JSON.parse(localStorage.getItem('metaMaskData'));
+        setFormData(metaMaskData);
+
+        if (metaMaskData && metaMaskData.age < 18) {
+            setFormDisabled(true);
+            alert('You must be logged in and at least 18 years old to fill out this form.');
+        }
+	}, [loggedIn])
 
 	const login = () => {
 		if (loggedIn)
@@ -44,9 +57,9 @@ export default function Home() {
 		<main className={styles.main}>
 		<Header />
 		{page === 0 && <MetaMaskLogin nextPage={nextPage} login={login}/>}
-		{page === 1 && <Form1 />}
-		{page === 2 && <Form2 />}
-		{page === 3 && <Form3 />}
+		{page === 1 && !formDisabled && <Form1 />}
+		{page === 2 && !formDisabled && <Form2 />}
+		{page === 3 && !formDisabled && <Form3 />}
 		{page <=3 && <div className="nav-div">
 			<button onClick={() => setPage(page - 1)} disabled={page < 1} style={
 				{display: page < 1 ? "none" : "block"}
